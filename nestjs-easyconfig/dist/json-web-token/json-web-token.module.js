@@ -6,20 +6,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var JsonWebTokenModule_1;
 const common_1 = require("@nestjs/common");
 const json_web_token_service_1 = require("./json-web-token.service");
 const jwt_1 = require("@nestjs/jwt");
-let JsonWebTokenModule = JsonWebTokenModule_1 = class JsonWebTokenModule {
-    static register() {
-        return {
-            module: JsonWebTokenModule_1,
-            providers: [json_web_token_service_1.JsonWebTokenService],
-            exports: [json_web_token_service_1.JsonWebTokenService],
-        };
-    }
+let JsonWebTokenModule = class JsonWebTokenModule {
 };
-JsonWebTokenModule = JsonWebTokenModule_1 = __decorate([
+JsonWebTokenModule = __decorate([
     common_1.Module({
         imports: [
             jwt_1.JwtModule.register({
@@ -29,7 +21,6 @@ JsonWebTokenModule = JsonWebTokenModule_1 = __decorate([
         ],
         providers: [json_web_token_service_1.JsonWebTokenService],
         exports: [json_web_token_service_1.JsonWebTokenService],
-    }),
-    common_1.Module({})
+    })
 ], JsonWebTokenModule);
 exports.JsonWebTokenModule = JsonWebTokenModule;
