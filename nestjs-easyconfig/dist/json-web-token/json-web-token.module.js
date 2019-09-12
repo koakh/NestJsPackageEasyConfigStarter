@@ -15,7 +15,7 @@ JsonWebTokenModule = __decorate([
     common_1.Module({
         imports: [
             jwt_1.JwtModule.register({
-                secret: 'jwtConstants.secret',
+                secret: 'just a stupid password',
                 signOptions: { expiresIn: '60s' },
             }),
         ],

@@ -1,10 +1,12 @@
 import { Module, DynamicModule } from '@nestjs/common';
 import { EasyconfigService } from './easyconfig.service';
 import { Config } from './config.interface';
-import { JsonWebTokenModule } from './json-web-token/json-web-token.module';
+// Not Needed to work
+// import { JsonWebTokenModule } from './json-web-token/json-web-token.module';
 
 @Module({
-  imports: [JsonWebTokenModule],
+  // Not Needed to work
+  // imports: [JsonWebTokenModule],
 })
 export class EasyconfigModule {
   static register(options?: Config): DynamicModule {

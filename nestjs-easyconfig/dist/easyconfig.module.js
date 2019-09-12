@@ -9,7 +9,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var EasyconfigModule_1;
 const common_1 = require("@nestjs/common");
 const easyconfig_service_1 = require("./easyconfig.service");
-const json_web_token_module_1 = require("./json-web-token/json-web-token.module");
 let EasyconfigModule = EasyconfigModule_1 = class EasyconfigModule {
     static register(options) {
         return {
@@ -25,8 +24,6 @@ let EasyconfigModule = EasyconfigModule_1 = class EasyconfigModule {
     }
 };
 EasyconfigModule = EasyconfigModule_1 = __decorate([
-    common_1.Module({
-        imports: [json_web_token_module_1.JsonWebTokenModule],
-    })
+    common_1.Module({})
 ], EasyconfigModule);
 exports.EasyconfigModule = EasyconfigModule;

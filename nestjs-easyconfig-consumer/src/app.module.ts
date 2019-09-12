@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { EasyconfigModule, JsonWebTokenService, JsonWebTokenModule } from 'nestjs-easyconfig';
+import { EasyconfigModule, JsonWebTokenModule } from 'nestjs-easyconfig';
 
 @Module({
   imports: [
