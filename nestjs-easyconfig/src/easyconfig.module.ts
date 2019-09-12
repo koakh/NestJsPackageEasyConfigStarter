@@ -10,7 +10,7 @@ export class EasyconfigModule {
   static register(options?: Config): DynamicModule {
     return {
       // Dynamic modules must return an object with the exact same interface, plus one additional property called module.
-      // The module property serves as the name of the module, and should be the same as the class name of the module, 
+      // The module property serves as the name of the module, and should be the same as the class name of the module,
       // as shown in the example below.
       module: EasyconfigModule,
       providers: [
