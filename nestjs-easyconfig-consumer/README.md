@@ -1,243 +1,75 @@
-# Notes
+<p align="center">
+  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo_text.svg" width="320" alt="Nest Logo" /></a>
+</p>
 
-## About
+[travis-image]: https://api.travis-ci.org/nestjs/nest.svg?branch=master
+[travis-url]: https://travis-ci.org/nestjs/nest
+[linux-image]: https://img.shields.io/travis/nestjs/nest/master.svg?label=linux
+[linux-url]: https://travis-ci.org/nestjs/nest
+  
+  <p align="center">A progressive <a href="http://nodejs.org" target="blank">Node.js</a> framework for building efficient and scalable server-side applications, heavily inspired by <a href="https://angular.io" target="blank">Angular</a>.</p>
+    <p align="center">
+<a href="https://www.npmjs.com/~nestjscore"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
+<a href="https://www.npmjs.com/~nestjscore"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
+<a href="https://www.npmjs.com/~nestjscore"><img src="https://img.shields.io/npm/dm/@nestjs/core.svg" alt="NPM Downloads" /></a>
+<a href="https://travis-ci.org/nestjs/nest"><img src="https://api.travis-ci.org/nestjs/nest.svg?branch=master" alt="Travis" /></a>
+<a href="https://travis-ci.org/nestjs/nest"><img src="https://img.shields.io/travis/nestjs/nest/master.svg?label=linux" alt="Linux" /></a>
+<a href="https://coveralls.io/github/nestjs/nest?branch=master"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#5" alt="Coverage" /></a>
+<a href="https://gitter.im/nestjs/nestjs?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=body_badge"><img src="https://badges.gitter.im/nestjs/nestjs.svg" alt="Gitter" /></a>
+<a href="https://opencollective.com/nest#backer"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
+<a href="https://opencollective.com/nest#sponsor"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
+  <a href="https://paypal.me/kamilmysliwiec"><img src="https://img.shields.io/badge/Donate-PayPal-dc3d53.svg"/></a>
+  <a href="https://twitter.com/nestframework"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
+</p>
+  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
+  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
-This simple minimal POC project, of how to use **external packages** in a **nestjs package** with a module and service exposed like `@nestjs/jwt` in a sub module `json-web-token`...confusing
+## Description
 
-I want to create a package, that have sub-modules, one of then use a external module and service, like `@nestjs/jwt`, but its is not easy peasy for me, I achieve that with the help of our friends `@jmcdo29` and `@Y Prospect` from nestjs discord channel
+[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
-this is based on `@jmcdo29` package <https://github.com/rubiin/nestjs-easyconfig>, just add a submodule and and external module `@nestjs/jwt`
+## Installation
 
-thanks guys :)
-
-## Some Links
-
-- [Dynamic modules](https://docs.nestjs.com/fundamentals/dynamic-modules)
-
-## Bootstrap Consumer App
-
-`nestjs-easyconfig`
-
-```shell
-# boostrap app
-$ nest new nestjs-easyconfig-consumer
-$ cd nestjs-easyconfig-consumer/
-$ npm install ../nestjs-easyconfig
+```bash
+$ npm install
 ```
 
-add local package
+## Running the app
 
-```json
-"dependencies": {
-  "nestjs-easyconfig": "file:../nestjs-easyconfig",
-},
+```bash
+# development
+$ npm run start
+
+# watch mode
+$ npm run start:dev
+
+# production mode
+$ npm run start:prod
 ```
 
-consume `EasyconfigModule` in consumer app
+## Test
 
-```typescript
-import { EasyconfigModule } from 'nestjs-easyconfig';
+```bash
+# unit tests
+$ npm run test
 
-@Module({
-  imports: [
-    EasyconfigModule.register({ path: './config/.env' }),
-  ],
+# e2e tests
+$ npm run test:e2e
+
+# test coverage
+$ npm run test:cov
 ```
 
-```shell
-# create env file
-$ mkdir config
-$ code ./config/.env
-```
+## Support
 
-with
+Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
 
-```
-ENV_VAR1=FOO
-ENV_VAR2=BAR
-```
+## Stay in touch
 
-done!
+- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
+- Website - [https://nestjs.com](https://nestjs.com/)
+- Twitter - [@nestframework](https://twitter.com/nestframework)
 
-now consume `EasyconfigModule` in `src/app.service.ts`
+## License
 
-```shell
-import { Injectable } from '@nestjs/common';
-import { EasyconfigService } from 'nestjs-easyconfig';
-
-@Injectable()
-export class AppService {
-  constructor(
-    private readonly easyconfigService: EasyconfigService,
-    ) { }
-
-  getHello(): string {
-    const envVar = this.easyconfigService.get('ENV_VAR1');
-    return `Hello World! ${envVar}`;
-  }
-}
-```
-
-run it and got to <http://localhost:3000>
-
-Done, we see **Hello World! FOO**
-
-## Now the hard Part, Use external package inside EasyconfigModule submodule `json-web-token`
-
-start change `nestjs-easyconfig` package from ourv guy `@jmcdo29`
-
-```shell
-# code or open a new code
-$ cd ../nestjs-easyconfig
-# deps
-$ npm i @nestjs/jwt
-```
-
-create module and service
-
-```shell
-# generate module and service
-$ nest g module jsonWebToken
-$ nest g service jsonWebToken
-```
-
-start to change `jsonWebTokenModule`
-
-`src/json-web-token/json-web-token.module.ts`
-
-```typescript
-import { Module } from '@nestjs/common';
-import { JsonWebTokenService } from './json-web-token.service';
-import { JwtModule } from '@nestjs/jwt';
-
-@Module({
-  // Y Prospect TIP :), without that it never works, respect Y Prospect
-  imports: [
-    JwtModule.register({
-      secret: 'just a stupid password',
-      signOptions: { expiresIn: '60s' },
-    }),
-  ],
-  providers: [JsonWebTokenService],
-  exports: [JsonWebTokenService],
-})
-
-export class JsonWebTokenModule { }
-```
-
-`src/json-web-token/json-web-token.service.ts`
-
-```typescript
-import { Injectable } from '@nestjs/common';
-import { JwtService } from '@nestjs/jwt';
-
-@Injectable()
-export class JsonWebTokenService {
-  constructor(
-    private readonly jwtService: JwtService,
-  ) { }
-
-  getToken(user: any) {
-    const payload = { username: user.username, sub: user.userId };
-    return this.jwtService.sign(payload);
-  }
-}
-```
-
-add it to `index.ts`
-
-```typescript
-export * from './easyconfig.module';
-export * from './easyconfig.service';
-export * from './json-web-token/json-web-token.module';
-export * from './json-web-token/json-web-token.service';
-```
-
-```shell
-# don't forget to build module else we can't import it in consumer app
-$ npm run build
-```
-
-done with package
-
-## Return to consumer App
-
-`src/app.module.ts` and import `JsonWebTokenModule`
-
-```typescript
-import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { EasyconfigModule, JsonWebTokenModule } from 'nestjs-easyconfig';
-
-@Module({
-  imports: [
-    EasyconfigModule.register({ path: './config/.env' }),
-    // the trick is import the module, not the service here
-    JsonWebTokenModule,
-  ],
-  controllers: [AppController],
-  providers: [AppService],
-})
-
-export class AppModule { }
-```
-
-now use `JsonWebTokenService` in `src/app.service.ts`
-
-```typescript
-import { Injectable } from '@nestjs/common';
-import { EasyconfigService, JsonWebTokenService } from 'nestjs-easyconfig';
-
-@Injectable()
-export class AppService {
-  constructor(
-    private readonly easyconfigService: EasyconfigService,
-    private readonly jsonWebTokenService: JsonWebTokenService,
-    ) { }
-
-  getHello(): string {
-    const envVar = this.easyconfigService.get('ENV_VAR1');
-    const token = this.jsonWebTokenService.getToken({ username: 'koakh', sub: 28 });
-    return `Hello World! ${envVar} ${token}`;
-  }
-}
-```
-
-run it, and browse <http://localhost:3000>
-
-now we see the jwt too :)
-
-```
-Hello World! FOO eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImtvYWtoIiwiaWF0IjoxNTY4MzMxMzMzLCJleHAiOjE1NjgzMzEzOTN9.dHd-iEm3JfmJJCprN0hZMk0TQRjCH0iuQAMJx9kn5gQ
-```
-
-awesome
-
-## Fixing problems Notes
-
-[Nest] 3778   - 2019-09-12 22:07:56   [ExceptionHandler] Nest cannot export a provider/module that is not a part of the currently processed module (EasyconfigModule). Please verify whether each exported unit is available in this particular context. +20ms
-
-fix adding `JsonWebTokenService` to `EasyconfigModule` `providers`
-
-```typescript
-export class EasyconfigModule {
-      providers: [
-        ...
-        },
-        JsonWebTokenService,
-    };
-```
-
-```shell
-# don't forget to build module
-$ npm run build
-```
-
-done now we have the error that gets us here
-
-```
-[Nest] 6038   - 2019-09-12 22:11:42   [ExceptionHandler] Nest can't resolve dependencies of the JsonWebTokenService (?). Please make sure that the argument at index [0] is available in the JsonWebTokenModule context. +40ms
-```
-
-the above error its the one that 'waste' some hours to find the simple way to do......simple after you know how to do it, always the same.......
+  Nest is [MIT licensed](LICENSE).
