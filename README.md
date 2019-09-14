@@ -257,3 +257,37 @@ add code to module, service and controller and test with
 <http://localhost:3000/auth>
 
 now try to remove dependencies from app.module.ts
+
+if we comment `JsonWebTokenModule` in `src/app.module.ts`, the module that we use in submodule `auth`, we break it and get the error, with that we proof that we nedd to configure and imports the module in base root
+
+```
+[Nest] 16134   - 2019-09-14 14:31:59   [ExceptionHandler] Nest can't resolve dependencies of the AppService (EasyconfigService, ?). Please make sure that the argument at index [1] is available in the AppModule context. +2ms
+```
+
+```typescript
+@Module({
+  imports: [
+    EasyconfigModule.register({ path: './config/.env' }),
+    // the trick is import the module, not the service here
+    // JsonWebTokenModule, <<<<<<<<<<< COMMENTED to proof that we need that
+    AuthModule,
+  ],
+  controllers: [AppController],
+  providers: [AppService],
+})
+```
+
+it is required in `src/auth/auth.module.ts` at
+
+```typescript
+@Module({
+  imports: [
+    // the trick is import the module, not the service here
+    JsonWebTokenModule, // <<<<<<<<<<< HERE
+  ],
+  providers: [AuthService],
+  controllers: [AuthController],
+})
+
+export class AuthModule {}
+```
