@@ -242,3 +242,18 @@ done now we have the error that gets us here
 ```
 
 the above error its the one that 'waste' some hours to find the simple way to do......simple after you know how to do it, always the same.......
+
+## try to use package module inside consumer app module auth (sub module)
+
+```shell
+# creata auth module
+$ nest g module auth
+$ nest g service auth
+$ nest g controller auth
+```
+
+add code to module, service and controller and test with
+
+<http://localhost:3000/auth>
+
+now try to remove dependencies from app.module.ts
