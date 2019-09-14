@@ -252,6 +252,37 @@ $ nest g service auth
 $ nest g controller auth
 ```
 
+`src/auth/auth.module.ts`
+
+```typescript
+@Module({
+  imports: [
+    // the trick is import the module, not the service here
+    JsonWebTokenModule,
+  ],
+  providers: [AuthService],
+  controllers: [AuthController],
+})
+
+export class AuthModule {}
+```
+
+`src/auth/auth.service.ts`
+
+```typescript
+@Injectable()
+export class AuthService {
+  constructor(
+    private readonly jsonWebTokenService: JsonWebTokenService,
+  ) { }
+
+  getHello(): string {
+    const token = this.jsonWebTokenService.getToken({ username: 'koakh', sub: 28 });
+    return `Hello World from AuthModule! ${token}`;
+  }
+}
+```
+
 add code to module, service and controller and test with
 
 <http://localhost:3000/auth>
