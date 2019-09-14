@@ -246,7 +246,7 @@ the above error its the one that 'waste' some hours to find the simple way to do
 ## try to use package module inside consumer app module auth (sub module)
 
 ```shell
-# creata auth module
+# create auth module
 $ nest g module auth
 $ nest g service auth
 $ nest g controller auth
