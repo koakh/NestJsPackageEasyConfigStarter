@@ -4,23 +4,30 @@
 
 This simple minimal POC project, of how to use **external packages** in a **nestjs package** with a module and service exposed like `@nestjs/jwt` in a sub module `json-web-token`...confusing
 
-I want to create a package, that have sub-modules, one of then use a external module and service, like `@nestjs/jwt`, but its is not easy peasy for me, I achieve that with the help of our friends `@jmcdo29` and `@Y Prospect` from nestjs discord channel
+I want to create a package, that have **sub-modules**, one of then use a **external module** and service, like `@nestjs/jwt`, but its is not easy peasy for me, I achieve that with the help of our friends `@jmcdo29` and `@Y Prospect` from nestjs discord channel
+
+in the end we want to our own nest js package, that consumes other external nest package like `@nestjs/jwt`
 
 this is based on `@jmcdo29` package <https://github.com/rubiin/nestjs-easyconfig>, just add a submodule and and external module `@nestjs/jwt`
 
 thanks guys :)
 
+## Project links
+
+- [koakh/NestJsPackageEasyConfigStarter](https://github.com/koakh/NestJsPackageEasyConfig)
+
 ## Some Links
 
 - [Publishing NestJS Packages with npm](https://dev.to/nestjs/publishing-nestjs-packages-with-npm-21fm)
 - [Dynamic modules](https://docs.nestjs.com/fundamentals/dynamic-modules)
+- [Advanced NestJS: How to build completely dynamic NestJS modules](https://dev.to/nestjs/advanced-nestjs-how-to-build-completely-dynamic-nestjs-modules-1370)
 
 ## Bootstrap Consumer App
 
 `nestjs-easyconfig`
 
 ```shell
-# boostrap app
+# bootstrap app
 $ nest new nestjs-easyconfig-consumer
 $ cd nestjs-easyconfig-consumer/
 $ npm install ../nestjs-easyconfig
@@ -83,9 +90,9 @@ run it and got to <http://localhost:3000>
 
 Done, we see **Hello World! FOO**
 
-## Now the hard Part, Use external package inside EasyconfigModule submodule `json-web-token`
+## Now the hard Part, Use our external package inside EasyconfigModule subModule `json-web-token`
 
-start change `nestjs-easyconfig` package from ourv guy `@jmcdo29`
+start change `nestjs-easyconfig` package from our guy `@jmcdo29`
 
 ```shell
 # code or open a new code
@@ -154,10 +161,7 @@ export * from './json-web-token/json-web-token.module';
 export * from './json-web-token/json-web-token.service';
 ```
 
-```shell
-# don't forget to build module else we can't import it in consumer app
-$ npm run build
-```
+have sub-modules
 
 done with package
 
@@ -287,9 +291,13 @@ add code to module, service and controller and test with
 
 <http://localhost:3000/auth>
 
+```
+Hello World from AuthModule! eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImtvYWtoIiwiaWF0IjoxNjAxNjMzMjE4LCJleHAiOjE2MDE2MzMyNzh9.t2k-ihqZ5fzBzlJwOSJnQo1p5zdMVBGwkRpoMsVaI20
+```
+
 now try to remove dependencies from app.module.ts
 
-if we comment `JsonWebTokenModule` in `src/app.module.ts`, the module that we use in submodule `auth`, we break it and get the error, with that we proof that we nedd to configure and imports the module in base root
+if we comment `JsonWebTokenModule` in `src/app.module.ts`, the module that we use in submodule `auth`, we break it and get the error, with that we proof that we need to configure and imports the module in base root
 
 ```
 [Nest] 16134   - 2019-09-14 14:31:59   [ExceptionHandler] Nest can't resolve dependencies of the AppService (EasyconfigService, ?). Please make sure that the argument at index [1] is available in the AppModule context. +2ms
@@ -300,7 +308,7 @@ if we comment `JsonWebTokenModule` in `src/app.module.ts`, the module that we us
   imports: [
     EasyconfigModule.register({ path: './config/.env' }),
     // the trick is import the module, not the service here
-    // JsonWebTokenModule, <<<<<<<<<<< COMMENTED to proof that we need that
+    // JsonWebTokenModule, <<<<<<<<<<< COMMENTED to proof that we need that here
     AuthModule,
   ],
   controllers: [AppController],
