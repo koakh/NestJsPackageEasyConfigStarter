@@ -243,7 +243,7 @@ done now we have the error that gets us here
 
 the above error its the one that 'waste' some hours to find the simple way to do......simple after you know how to do it, always the same.......
 
-## try to use package module inside consumer app module auth (sub module)
+## Try to use package module inside consumer app module auth (sub module)
 
 ```shell
 # create auth module
