@@ -6,7 +6,9 @@ import { JwtModule } from '@nestjs/jwt';
   // Y Prospect TIP :), without that it never works, respect Y Prospect
   imports: [
     JwtModule.register({
+      // NOTE: must be replaced by environment variable
       secret: 'just a stupid password',
+      // NOTE: must be replaced by environment variable
       signOptions: { expiresIn: '60s' },
     }),
   ],

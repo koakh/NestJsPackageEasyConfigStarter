@@ -10,7 +10,6 @@ export class EasyconfigService {
   private readonly logger = new Logger(EasyconfigService.name);
 
   constructor(config?: Config) {
-
     if (!config.path && process.env.NODE_ENV) {
       this.envConfig = dotenv.parse(
         fs.readFileSync(path.resolve(`.env.${process.env.NODE_ENV}`)),
@@ -45,7 +44,6 @@ export class EasyconfigService {
   /**
    *  checks whether the used env file missed some keys
    */
-
   safeCheck = (userEnvFile: string[], config: string) => {
     const src = Object.keys(
       dotenv.parse(fs.readFileSync(path.resolve(config))),
